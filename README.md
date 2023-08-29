@@ -1,2 +1,2 @@
-# Django_Form
-App 17
+# Django Form
+This is a django form
