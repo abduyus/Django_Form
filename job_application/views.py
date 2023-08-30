@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.contrib import messages
+from django.core.mail import EmailMessage
 from .forms import ApplicationForm
 from .models import Form
-from django.contrib import messages
 
 def index(request):
     if request.method == 'POST':
@@ -15,6 +16,10 @@ def index(request):
 
             Form.objects.create(first_name=first_name, last_name=last_name,
                                  email=email, date=date, occupation=occupation)
+            
+            message_body = f"A new job application form was submitted. Thank you, {first_name}. Here is your submission data: \n{first_name}\n{last_name}\n{email}\n{date}\n{occupation}"
+            email_message = EmailMessage("Form submission confirmation", message_body, to=[email])
+            email_message.send()
             messages.success(request, "Your application has been submitted successfully!")
     else:
         form = ApplicationForm()
