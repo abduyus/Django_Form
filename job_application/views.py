@@ -17,7 +17,8 @@ def index(request):
             Form.objects.create(first_name=first_name, last_name=last_name,
                                  email=email, date=date, occupation=occupation)
             
-            message_body = f"A new job application form was submitted. Thank you, {first_name}. Here is your submission data: \n{first_name}\n{last_name}\n{email}\n{date}\n{occupation}"
+            message_body = f"A new job application form was submitted. Thank you, {first_name}. Here is your submission data:" \
+                            "\n{first_name}\n{last_name}\n{email}\n{date}\n{occupation}"
             email_message = EmailMessage("Form submission confirmation", message_body, to=[email])
             email_message.send()
             messages.success(request, "Your application has been submitted successfully!")
